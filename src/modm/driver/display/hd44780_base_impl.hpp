@@ -41,7 +41,6 @@ modm::Hd44780Base<DATA, RW, RS, E>::initialize(LineMode lineMode)
 	{
 		while(isBusy())
 			;
-		RW::set(RW_Write);
 		Bus<DATA, E, DATA::width>::writeHighNibble(Set4BitBus);
 	}
 
@@ -210,6 +209,7 @@ template <typename Data, typename Enable>
 void
 modm::Hd44780Base<DATA, RW, RS, E>::Bus<Data, Enable, 4>::writeHighNibble(uint8_t data)
 {
+	RW::set(RW_Write);
 	Bus<DATA, E, 8>::write(data >> 4);
 }
 
